@@ -60,14 +60,13 @@ def get_single_member(id):
     member = jackson_family.get_member(id)
     return jsonify(member), 200
 
-@app.route('/add-member', methods=['POST'])
+@app.route('/member', methods=['POST'])
 def handle_add_member():
-    response_body = {}
     member = request.json
-    family_member = member["member"]
-    jackson_family.add_member(family_member)
-    response_body["message"] = "Miembro añadido"
-    return response_body, 201
+    print("added", member)
+    jackson_family.add_member(member)
+    if member is not None:
+        return "Member created", 200
 
 @app.route('/member/<int:id>', methods=['DELETE'])
 def delete_single_member(id):
